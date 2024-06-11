@@ -19,6 +19,7 @@ const ThemeSwitcher = () => {
   return (
     <button onClick={() => setTheme(theme === 'dark' ? 'light': 'dark')}>
       { theme === 'dark' ? '🌞' : '🌙' }
+      {theme}
     </button>
   )
 }
