@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${firaCode.className} h-full bg-amber-50 dark:bg-slate-950 text-indigo-950 dark:text-amber-50 dark:selection:bg-purple-500`}>
+      <body className={`${firaCode.className} my-5 h-full bg-amber-50 dark:bg-slate-950 text-indigo-950 dark:text-amber-50 dark:selection:bg-purple-500`}>
         <ThemeProvider attribute="class">
           <Navbar />
           <main className="mx-auto max-w-5xl px-6">
