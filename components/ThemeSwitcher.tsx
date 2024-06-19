@@ -21,6 +21,9 @@ const ThemeSwitcher = () => {
 
   return (
     <div className='flex items-center space-x-3'>
+      <Link href='/tags' className='hover:text-purple-500'>
+        #tags
+      </Link>
       <Link href='/studio' className='border-2 border-purple-500 p-2 rounded-2xl hover:bg-purple-400 transition duration-200'>
         <span className=''>studio</span>
       </Link>

@@ -40,6 +40,9 @@ export const post = {
           type: 'block'
         },
         {
+          type: 'quote'
+        },
+        {
           type: 'image',
           fields: [{ type: 'text', name: 'alt', title: 'Alt' }]
         },
@@ -47,6 +50,9 @@ export const post = {
           type: 'code',
           name: 'code',
           title: 'Code block',
+        },
+        {
+          type: 'youtube'
         }
       ]
     },

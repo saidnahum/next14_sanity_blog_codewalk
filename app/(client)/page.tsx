@@ -24,6 +24,8 @@ const getPosts = async () => {
   return data;
 }
 
+export const revalidate = 60;
+
 const Home = async () => {
 
   const posts: Post[] = await getPosts()
