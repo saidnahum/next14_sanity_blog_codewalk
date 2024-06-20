@@ -1,5 +1,5 @@
-import CommentForm from "@/components/CommentForm";
 import Header from "@/components/Header";
+
 import RenderYoutubeVideo from "@/components/RenderYoutubeVideo";
 import { client } from "@/sanity/lib/client";
 import { urlForImage } from "@/sanity/lib/image";
@@ -81,8 +81,6 @@ const PostPage = async ({ params }: Params) => {
           value={post?.body}
           components={myPortableTextComponents}
         />
-
-        <CommentForm postId={post._id}/>
       </div>
     </div>
   )
