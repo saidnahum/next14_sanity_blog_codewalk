@@ -7,7 +7,8 @@ export interface Post {
   excerpt: string;
   body: any;
   tags: Array<Tag>;
-  _id: string
+  _id: string,
+  headings?: String[] | HTMLHeadElement[]
 }
 
 export interface Tag {

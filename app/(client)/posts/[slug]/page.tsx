@@ -1,7 +1,9 @@
+import CommentForm from "@/components/CommentForm";
 import Header from "@/components/Header";
 import RenderYoutubeVideo from "@/components/RenderYoutubeVideo";
 import { client } from "@/sanity/lib/client";
 import { urlForImage } from "@/sanity/lib/image";
+import { slugify } from "@/utils/helpers";
 import { Post } from "@/utils/interface";
 import { PortableText } from "next-sanity";
 import { VT323 } from 'next/font/google'
@@ -32,7 +34,8 @@ const getPost = async (slug: String) => {
       slug,
       name
     },
-    body
+    body,
+    'headings': body[style in ['h2', 'h3', 'h4']]
   }
   `;
 
@@ -71,11 +74,15 @@ const PostPage = async ({ params }: Params) => {
         </div>
       </div>
 
+      <Toc headings={post?.headings}/>
+
       <div className={richTextStyles}>
         <PortableText
           value={post?.body}
           components={myPortableTextComponents}
         />
+
+        <CommentForm postId={post._id}/>
       </div>
     </div>
   )
@@ -88,8 +95,10 @@ const richTextStyles = `
   text-justify
   max-w-2xl
   mx-auto
+  prose
+  dark:prose-invert
   prose-headings:my-5
-  prose-headings:text-2xl
+  prose-headings:text-left
   prose-p:mb-5
   prose-p:leading-7
   prose-li:list-disc
@@ -140,5 +149,41 @@ const myPortableTextComponents = {
         </blockquote>
       </div>
     )
+  },
+  block: {
+    h2: ({value}: any) => (
+      <h2 id={slugify(value.children[0].text)} className="text-3xl font-bold mb-3 text-red-500">
+        {value.children[0].text}
+      </h2>
+    ),
+    h3: ({value}: any) => (
+      <h3 id={slugify(value.children[0].text)} className="text-2xl font-bold mb-3 text-yellow-500">
+        {value.children[0].text}
+      </h3>
+    ),
+    h4: ({value}: any) => (
+      <h4 id={slugify(value.children[0].text)} className="text-xl font-bold mb-3 text-blue-500">
+        {value.children[0].text}
+      </h4>
+    )
   }
 }
+
+const Toc = ({headings}: any) => (
+  <div className="my-10 text-center max-w-2xl mx-auto border rounded-sm dark:border-purple-950 p-2">
+    <h2 className="text-xl font-bold p-2 mb-5 border-b dark:border-purple-950 bg-amber-50 dark:bg-slate-950/20">Table of Contents</h2>
+    <nav>
+      <ul className="flex flex-col gap-3">
+        {
+          headings?.map((heading: any) => (
+            <li key={heading?._key}>
+              <a className="hover:underline" href={`#${slugify(heading.children[0].text)}`}>
+                {heading?.children[0].text}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+)
